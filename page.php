@@ -29,7 +29,12 @@ while (have_posts()) {
         ?>
 
         <?php
-        if(wp_get_post_parent_id(get_the_ID()) == 0){
+        $child_pages = get_pages(array(
+            'child_of' => get_the_ID(),
+            'parent'   => get_the_ID()
+        ));
+
+        if(wp_get_post_parent_id(get_the_ID()) == 0 && count($child_pages) >0){
         ?>
         <div class="page-links">
             <h2 class="page-links__title"><a href="<?php echo get_permalink(wp_get_post_parent_id(get_the_ID())) ?>"><?php echo get_the_title(wp_get_post_parent_id(get_the_ID())) ?></a></h2>
